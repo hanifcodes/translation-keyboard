@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121413" media="(prefers-color-scheme: dark)">
+<meta name="referrer" content="no-referrer">
+<title>Translation Keyboard</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f6b5c'/%3E%3Ctext x='16' y='22' font-family='system-ui' font-size='15' font-weight='700' text-anchor='middle' fill='white'%3ETK%3C/text%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #f6f5f2; --surface: #ffffff; --surface-2: #f0efeb; --line: #e2e0da;
+  --text: #1b1d1c; --muted: #5d625f; --accent: #0f6b5c; --accent-ink: #ffffff;
+  --accent-soft: #e2f0ec; --warn: #8a5a00; --warn-soft: #fbf1dc; --danger: #a8322a; --danger-soft: #fbe9e7;
+  --focus: #1d5fd6; --shadow: 0 1px 2px rgb(0 0 0 / .05), 0 8px 24px rgb(0 0 0 / .06);
+  --radius: 18px; --radius-sm: 12px;
+  --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-arabic: "Noto Naskh Arabic", "Noto Sans Arabic", "Geeza Pro", "Segoe UI", "Arabic Typesetting", Tahoma, sans-serif;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --bg: #121413; --surface: #1b1e1d; --surface-2: #232726; --line: #2f3432;
+  --text: #ecefed; --muted: #a3aaa6; --accent: #5cc8b0; --accent-ink: #08201b;
+  --accent-soft: #1d3a34; --warn: #f0c46b; --warn-soft: #3a2f17; --danger: #ff9c90; --danger-soft: #3d1f1c;
+  --focus: #8ab4ff; --shadow: 0 1px 2px rgb(0 0 0 / .4), 0 8px 24px rgb(0 0 0 / .3);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"] {
+    --bg: #121413; --surface: #1b1e1d; --surface-2: #232726; --line: #2f3432;
+    --text: #ecefed; --muted: #a3aaa6; --accent: #5cc8b0; --accent-ink: #08201b;
+    --accent-soft: #1d3a34; --warn: #f0c46b; --warn-soft: #3a2f17; --danger: #ff9c90; --danger-soft: #3d1f1c;
+    --focus: #8ab4ff; --shadow: 0 1px 2px rgb(0 0 0 / .4), 0 8px 24px rgb(0 0 0 / .3);
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--text); font: 16px/1.5 var(--font);
+  -webkit-font-smoothing: antialiased; min-height: 100dvh;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 8px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: 12px; top: -48px; background: var(--surface); padding: 8px 12px; border-radius: 8px; z-index: 10; }
+.skip:focus { top: 12px; }
+[hidden] { display: none !important; }
+
+.wrap { max-width: 640px; margin: 0 auto; padding: 16px 16px 48px; }
+header.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 4px 2px 16px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 650; letter-spacing: -.01em; font-size: 1.05rem; }
+.logo { width: 30px; height: 30px; border-radius: 9px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-size: .78rem; font-weight: 750; }
+.icon-btn { border: 1px solid var(--line); background: var(--surface); width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; }
+.icon-btn svg { width: 18px; height: 18px; }
+
+.banner { border-radius: var(--radius-sm); padding: 10px 14px; font-size: .9rem; margin-bottom: 12px; display: flex; gap: 10px; align-items: flex-start; }
+.banner.warn { background: var(--warn-soft); color: var(--warn); }
+.banner.error { background: var(--danger-soft); color: var(--danger); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.unlock { padding: 24px; }
+.unlock h1 { font-size: 1.35rem; margin: 0 0 4px; letter-spacing: -.01em; }
+.unlock p { color: var(--muted); margin: 0 0 18px; }
+.field-row { display: flex; gap: 8px; }
+.text-input { flex: 1; min-width: 0; border: 1px solid var(--line); background: var(--surface-2); border-radius: 12px; padding: 12px 14px; }
+.btn { border: 0; border-radius: 12px; padding: 11px 16px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; justify-content: center; white-space: nowrap; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); }
+.btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); }
+.btn.small { padding: 7px 12px; font-size: .88rem; border-radius: 10px; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn svg { width: 16px; height: 16px; }
+.hint { color: var(--muted); font-size: .85rem; }
+.err-text { color: var(--danger); font-size: .9rem; min-height: 1.4em; margin: 8px 0 0; }
+
+/* controls */
+.controls { display: grid; gap: 12px; margin-bottom: 12px; }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.lang-btn { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; text-align: start; border: 1px solid var(--line); background: var(--surface); border-radius: 14px; padding: 10px 14px; cursor: pointer; box-shadow: var(--shadow); }
+.lang-btn .l-main { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lang-btn .l-main { display: block; }
+.lang-btn .l-sub { display: block; color: var(--muted); font-size: .85rem; }
+.lang-btn .l-sub:empty { display: none; }
+.lang-btn .chev { margin-inline-start: auto; color: var(--muted); }
+.select { border: 1px solid var(--line); background: var(--surface); border-radius: 14px; padding: 10px 12px; box-shadow: var(--shadow); }
+.label-sm { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; border: 0; padding: 0; margin: 0; }
+.chip { position: relative; }
+.chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.chip span { display: inline-block; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-size: .92rem; cursor: pointer; }
+.chip input:checked + span { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.chip input:focus-visible + span { outline: 3px solid var(--focus); outline-offset: 2px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); }
+.seg button { border: 0; background: transparent; padding: 6px 12px; border-radius: 999px; cursor: pointer; font-size: .9rem; }
+.seg button[aria-pressed="true"] { background: var(--accent-soft); color: var(--text); font-weight: 600; }
+
+/* composer + suggestion strip */
+.composer { overflow: hidden; }
+.composer textarea { display: block; width: 100%; min-height: 132px; resize: vertical; border: 0; background: transparent; padding: 16px 16px 8px; font-size: 1.08rem; line-height: 1.55; }
+.composer textarea:focus-visible { outline: none; }
+.composer:focus-within { border-color: var(--accent); }
+.composer-foot { display: flex; justify-content: space-between; align-items: center; padding: 4px 10px 10px 16px; }
+.strip { border-top: 1px solid var(--line); background: var(--surface-2); padding: 12px 12px 12px 16px; display: grid; gap: 10px; }
+.strip-head { display: flex; align-items: center; gap: 8px; font-size: .82rem; color: var(--muted); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--line); flex: none; }
+.dot.live { background: var(--accent); animation: pulse 1s ease-in-out infinite; }
+.dot.done { background: var(--accent); }
+.dot.err { background: var(--danger); }
+@keyframes pulse { 50% { opacity: .35; } }
+.out { font-size: 1.15rem; line-height: 1.6; min-height: 1.6em; white-space: pre-wrap; overflow-wrap: anywhere; }
+.out:empty::before { content: attr(data-placeholder); color: var(--muted); font-size: 1rem; }
+.out[dir="rtl"], .rtl-text { font-family: var(--font-arabic); font-size: 1.3rem; line-height: 1.8; }
+.out .caret { display: inline-block; width: 2px; height: 1.1em; background: var(--accent); vertical-align: text-bottom; animation: pulse 1s steps(2) infinite; margin-inline-start: 2px; }
+.strip-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.note { font-size: .84rem; color: var(--muted); margin: 10px 4px 0; display: flex; gap: 6px; align-items: flex-start; }
+.note svg { width: 15px; height: 15px; flex: none; margin-top: 3px; }
+
+/* explain */
+.panel { margin-top: 14px; padding: 16px; }
+.panel h2 { font-size: 1rem; margin: 0 0 10px; display: flex; align-items: center; gap: 8px; }
+.panel h3 { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 14px 0 6px; }
+.panel p, .panel ul { margin: 0; }
+.panel ul { padding-inline-start: 1.1em; }
+.panel li + li { margin-top: 4px; }
+.flag { background: var(--warn-soft); border-radius: 10px; padding: 8px 10px; list-style: none; margin-inline-start: -1.1em; }
+.flag b { font-weight: 600; }
+.badge { font-size: .74rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); color: var(--muted); }
+.badge.low { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+.badge.high { background: var(--accent-soft); color: var(--text); border-color: transparent; }
+.skeleton { height: 12px; border-radius: 6px; background: linear-gradient(90deg, var(--surface-2), var(--line), var(--surface-2)); background-size: 200% 100%; animation: shimmer 1.2s linear infinite; margin: 8px 0; }
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+/* recent */
+.recent { margin-top: 22px; }
+.recent-head { display: flex; justify-content: space-between; align-items: baseline; margin: 0 4px 8px; }
+.recent-head h2 { font-size: .95rem; margin: 0; }
+.recent ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.recent li { padding: 12px 14px; display: grid; gap: 4px; }
+.recent .r-src { color: var(--muted); font-size: .88rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.recent .r-meta { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: .8rem; color: var(--muted); }
+.empty { color: var(--muted); font-size: .9rem; padding: 14px; text-align: center; border: 1px dashed var(--line); border-radius: var(--radius-sm); }
+
+/* language dialog */
+dialog { border: 0; padding: 0; background: var(--surface); color: var(--text); width: min(560px, 100vw); max-height: min(720px, 92dvh); border-radius: 22px; box-shadow: 0 20px 60px rgb(0 0 0 / .3); }
+dialog::backdrop { background: rgb(0 0 0 / .4); }
+@media (max-width: 600px) {
+  dialog { margin: auto 0 0; width: 100vw; max-width: 100vw; border-radius: 22px 22px 0 0; max-height: 88dvh; }
+}
+.dlg { display: flex; flex-direction: column; max-height: inherit; }
+.dlg-head { padding: 16px 16px 10px; border-bottom: 1px solid var(--line); display: grid; gap: 10px; }
+.dlg-title { display: flex; justify-content: space-between; align-items: center; }
+.dlg-title h2 { margin: 0; font-size: 1.1rem; }
+.search { width: 100%; border: 1px solid var(--line); background: var(--surface-2); border-radius: 12px; padding: 11px 14px; }
+.dlg-body { overflow: auto; padding: 6px 8px 16px; }
+.group-label { font-size: .76rem; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); font-weight: 650; padding: 14px 10px 6px; margin: 0; }
+.opt { width: 100%; display: flex; align-items: center; gap: 12px; border: 0; background: transparent; text-align: start; padding: 10px; border-radius: 12px; cursor: pointer; }
+.opt:hover { background: var(--surface-2); }
+.opt[aria-selected="true"] { background: var(--accent-soft); }
+.opt .o-name { font-weight: 600; }
+.opt .o-native { color: var(--muted); font-size: .9rem; }
+.opt .o-tag { margin-inline-start: auto; }
+.opt .check { width: 18px; color: var(--accent); visibility: hidden; }
+.opt[aria-selected="true"] .check { visibility: visible; }
+
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom)); transform: translateX(-50%) translateY(20px); background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 999px; font-size: .9rem; opacity: 0; transition: .2s ease; pointer-events: none; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 28px; line-height: 1.6; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#input">Skip to message box</a>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><span class="logo" aria-hidden="true">TK</span> Translation Keyboard</div>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch to dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </header>
+
+  <div id="mockBanner" class="banner warn" role="status" hidden>
+    <span aria-hidden="true">●</span><span id="mockText"><b>Demo mode.</b> No AI key is set on the server, so results are placeholders.</span>
+  </div>
+  <div id="globalError" class="banner error" role="alert" hidden></div>
+
+  <!-- Unlock -->
+  <section id="unlockView" class="card unlock" aria-labelledby="unlockTitle" hidden>
+    <h1 id="unlockTitle">Welcome</h1>
+    <p>Enter your access code to start. It's kept only while this tab is open.</p>
+    <form id="unlockForm" novalidate>
+      <label for="codeInput" class="sr-only">Access code</label>
+      <div class="field-row">
+        <input id="codeInput" class="text-input" type="password" autocomplete="off" spellcheck="false" placeholder="Access code" required aria-describedby="unlockErr">
+        <button class="btn primary" type="submit" id="unlockBtn">Unlock</button>
+      </div>
+      <p id="unlockErr" class="err-text" role="alert"></p>
+    </form>
+  </section>
+
+  <!-- App -->
+  <main id="appView" hidden>
+    <div class="controls">
+      <div class="row">
+        <button type="button" class="lang-btn" id="langBtn" aria-haspopup="dialog" aria-controls="langDialog">
+          <span>
+            <span class="label-sm" id="langLabel">Translate to</span>
+            <span class="l-main" id="langName">Choose a language</span>
+            <span class="l-sub" id="langNative"></span>
+          </span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <label class="sr-only" for="audience">Speaking to</label>
+        <select id="audience" class="select" title="Who you're writing to">
+          <option value="unknown">To: anyone</option>
+          <option value="man">To: a man</option>
+          <option value="woman">To: a woman</option>
+          <option value="group">To: a group</option>
+        </select>
+      </div>
+      <div class="row" style="justify-content: space-between">
+        <fieldset class="chips" id="tones">
+          <legend class="sr-only">Tone</legend>
+        </fieldset>
+        <div class="seg" id="scriptSeg" role="group" aria-label="Script" hidden>
+          <button type="button" data-script="arabic" aria-pressed="true" lang="ar">عربي</button>
+          <button type="button" data-script="latin" aria-pressed="false">Latin</button>
+        </div>
+      </div>
+    </div>
+
+    <section class="card composer" aria-label="Message">
+      <label for="input" class="sr-only">Type your message in your own language</label>
+      <textarea id="input" dir="auto" placeholder="Type in your own language…" autocomplete="off" spellcheck="true" aria-describedby="count"></textarea>
+      <div class="composer-foot">
+        <span id="count" class="hint" aria-live="off">0 / 1000</span>
+        <button type="button" class="btn ghost small" id="clearBtn">Clear</button>
+      </div>
+      <div class="strip" aria-labelledby="stripLabel">
+        <div class="strip-head"><span class="dot" id="dot" aria-hidden="true"></span><span id="stripLabel">Suggestion</span></div>
+        <div id="out" class="out" data-placeholder="Your translation appears here as you type." aria-live="off" aria-atomic="false"></div>
+        <div class="strip-actions">
+          <button type="button" class="btn primary small" id="copyBtn" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copy
+          </button>
+          <button type="button" class="btn ghost small" id="explainBtn" disabled aria-controls="explainPanel">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Check and explain
+          </button>
+        </div>
+      </div>
+    </section>
+    <p class="note" id="reviewNote">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+      <span id="reviewText"></span>
+    </p>
+
+    <section id="explainPanel" class="card panel" aria-live="polite" aria-busy="false" hidden></section>
+
+    <section class="recent" aria-labelledby="recentTitle">
+      <div class="recent-head">
+        <h2 id="recentTitle">Recent <span class="hint">(this tab only, never saved)</span></h2>
+        <button type="button" class="btn ghost small" id="clearRecent" hidden>Clear</button>
+      </div>
+      <ul id="recentList"></ul>
+      <p class="empty" id="recentEmpty">Nothing yet. Your last translations show up here until you close the tab.</p>
+    </section>
+  </main>
+
+  <footer>
+    AI-generated text can be wrong. Check anything important with a native speaker.<br>
+    Messages are sent to the AI provider to translate and are not stored by this app.
+  </footer>
+</div>
+
+<dialog id="langDialog" aria-labelledby="dlgTitle">
+  <div class="dlg">
+    <div class="dlg-head">
+      <div class="dlg-title">
+        <h2 id="dlgTitle">Choose a language</h2>
+        <button class="icon-btn" type="button" id="dlgClose" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <label for="langSearch" class="sr-only">Search languages</label>
+      <input id="langSearch" class="search" type="search" placeholder="Search, e.g. Darija, Yoruba, Gulf" autocomplete="off" aria-controls="langList">
+    </div>
+    <div class="dlg-body" id="langList" role="listbox" aria-label="Languages"></div>
+  </div>
+</dialog>
+
+<div id="sr" class="sr-only" aria-live="polite"></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="config.js"></script>
+<script src="app.js" defer></script>
+</body>
+</html>

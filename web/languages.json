@@ -1,0 +1,249 @@
+{
+ "groups": [
+  {
+   "region": "West Africa",
+   "languages": [
+    {
+     "code": "ha",
+     "name": "Hausa",
+     "native_name": "Hausa",
+     "region": "West Africa",
+     "scripts": [
+      "latin"
+     ],
+     "default_script": "latin",
+     "directions": {
+      "latin": "ltr"
+     },
+     "lang_tags": {
+      "latin": "ha"
+     },
+     "needs_native_review": true,
+     "resource_level": "lower",
+     "weak_spots": "Less high-quality Hausa text exists online than for French or Arabic; expect occasional unnatural word choice, wrong gender agreement or missing hooked letters. Regional differences (Kano vs Sokoto vs Niger) are not modelled."
+    },
+    {
+     "code": "yo",
+     "name": "Yoruba",
+     "native_name": "Yorùbá",
+     "region": "West Africa",
+     "scripts": [
+      "latin"
+     ],
+     "default_script": "latin",
+     "directions": {
+      "latin": "ltr"
+     },
+     "lang_tags": {
+      "latin": "yo"
+     },
+     "needs_native_review": true,
+     "resource_level": "lower",
+     "weak_spots": "Tone marks are the biggest risk: the model may misplace or omit them, which can change meaning. Word choice for modern business terms is uncertain. Proverbs should be checked carefully; a wrong proverb is worse than none."
+    },
+    {
+     "code": "ig",
+     "name": "Igbo",
+     "native_name": "Igbo",
+     "region": "West Africa",
+     "scripts": [
+      "latin"
+     ],
+     "default_script": "latin",
+     "directions": {
+      "latin": "ltr"
+     },
+     "lang_tags": {
+      "latin": "ig"
+     },
+     "needs_native_review": true,
+     "resource_level": "lower",
+     "weak_spots": "One of the weakest languages here for the model. Dialects (Owerri, Onitsha, Nsukka and others) differ a lot and only a standard-ish variety is targeted. Expect English code-mixing choices and modern vocabulary to vary."
+    },
+    {
+     "code": "pcm",
+     "name": "Nigerian Pidgin",
+     "native_name": "Naijá",
+     "region": "West Africa",
+     "scripts": [
+      "latin"
+     ],
+     "default_script": "latin",
+     "directions": {
+      "latin": "ltr"
+     },
+     "lang_tags": {
+      "latin": "pcm"
+     },
+     "needs_native_review": true,
+     "resource_level": "lower",
+     "weak_spots": "Spelling varies widely and there is little edited Pidgin text. Ghanaian and Cameroonian Pidgin are different and not covered. Fast-moving slang may be dated or wrong."
+    }
+   ]
+  },
+  {
+   "region": "North Africa",
+   "languages": [
+    {
+     "code": "ary",
+     "name": "Moroccan Darija",
+     "native_name": "الدارجة المغربية",
+     "region": "North Africa",
+     "scripts": [
+      "arabic",
+      "latin"
+     ],
+     "default_script": "arabic",
+     "directions": {
+      "arabic": "rtl",
+      "latin": "ltr"
+     },
+     "lang_tags": {
+      "arabic": "ary",
+      "latin": "ary-Latn"
+     },
+     "needs_native_review": true,
+     "resource_level": "lower",
+     "weak_spots": "The model has seen far more MSA and Egyptian than Darija, so MSA or Egyptian words may leak in. Regional Darija (north, east, south) and Amazigh-influenced speech are not modelled. Latin-letter spelling varies between people."
+    },
+    {
+     "code": "arz",
+     "name": "Egyptian Arabic",
+     "native_name": "العامية المصرية",
+     "region": "North Africa",
+     "scripts": [
+      "arabic",
+      "latin"
+     ],
+     "default_script": "arabic",
+     "directions": {
+      "arabic": "rtl",
+      "latin": "ltr"
+     },
+     "lang_tags": {
+      "arabic": "arz",
+      "latin": "arz-Latn"
+     },
+     "needs_native_review": true,
+     "resource_level": "higher",
+     "weak_spots": "Usually the strongest Arabic dialect for the model, but it can still drift into MSA in formal tone. Upper Egyptian (Sa'idi) is not covered."
+    }
+   ]
+  },
+  {
+   "region": "Gulf",
+   "languages": [
+    {
+     "code": "ar-SA",
+     "name": "Saudi Arabic",
+     "native_name": "اللهجة السعودية",
+     "region": "Gulf",
+     "scripts": [
+      "arabic",
+      "latin"
+     ],
+     "default_script": "arabic",
+     "directions": {
+      "arabic": "rtl",
+      "latin": "ltr"
+     },
+     "lang_tags": {
+      "arabic": "ar-SA",
+      "latin": "ar-SA-Latn"
+     },
+     "needs_native_review": true,
+     "resource_level": "higher",
+     "weak_spots": "Saudi Arabic is varied (Najdi, Hijazi, southern, eastern). Only urban Najdi with some Hijazi is targeted; the model may blend in general Gulf (Emirati/Kuwaiti) words. Latin-letter Saudi texting is less common, so spelling is less settled."
+    }
+   ]
+  },
+  {
+   "region": "Levant",
+   "languages": [
+    {
+     "code": "apc",
+     "name": "Levantine Arabic",
+     "native_name": "اللهجة الشامية",
+     "region": "Levant",
+     "scripts": [
+      "arabic",
+      "latin"
+     ],
+     "default_script": "arabic",
+     "directions": {
+      "arabic": "rtl",
+      "latin": "ltr"
+     },
+     "lang_tags": {
+      "arabic": "apc",
+      "latin": "apc-Latn"
+     },
+     "needs_native_review": true,
+     "resource_level": "higher",
+     "weak_spots": "'Levantine' covers four countries; output aims for common ground and may sound slightly 'off' to a Lebanese or Palestinian ear. Choosing between Lebanese French code-mixing and Jordanian/Syrian norms is not configurable."
+    }
+   ]
+  },
+  {
+   "region": "East Africa",
+   "languages": [
+    {
+     "code": "sw",
+     "name": "Swahili",
+     "native_name": "Kiswahili",
+     "region": "East Africa",
+     "scripts": [
+      "latin"
+     ],
+     "default_script": "latin",
+     "directions": {
+      "latin": "ltr"
+     },
+     "lang_tags": {
+      "latin": "sw"
+     },
+     "needs_native_review": true,
+     "resource_level": "higher",
+     "weak_spots": "Better covered than the Nigerian languages, but Kenyan and Tanzanian preferences differ and the output may mix them. Noun-class agreement errors can still appear."
+    }
+   ]
+  },
+  {
+   "region": "Europe",
+   "languages": [
+    {
+     "code": "fr",
+     "name": "French",
+     "native_name": "Français",
+     "region": "Europe",
+     "scripts": [
+      "latin"
+     ],
+     "default_script": "latin",
+     "directions": {
+      "latin": "ltr"
+     },
+     "lang_tags": {
+      "latin": "fr"
+     },
+     "needs_native_review": true,
+     "resource_level": "higher",
+     "weak_spots": "Strong overall. West African, Belgian, Swiss and Canadian French differ in vocabulary and are not separate options yet."
+    }
+   ]
+  }
+ ],
+ "tones": [
+  "casual",
+  "friendly",
+  "formal",
+  "playful"
+ ],
+ "audiences": [
+  "unknown",
+  "man",
+  "woman",
+  "group"
+ ],
+ "max_chars": 1000
+}
