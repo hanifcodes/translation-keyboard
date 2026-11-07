@@ -1,0 +1,6 @@
+# Runtime. After the first green CI run, pin exact versions with: pip freeze > requirements.lock
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.7
+anthropic>=0.40
+httpx>=0.27

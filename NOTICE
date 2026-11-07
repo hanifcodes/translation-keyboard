@@ -1,0 +1,22 @@
+CONFIDENTIAL AND PROPRIETARY
+
+Translation Keyboard
+Copyright (c) 2026 [OWNER NAME]. All rights reserved.
+
+This source code, the language and dialect profiles in app/languages.py, the
+prompts in app/engine.py and the evaluation materials in eval/ are
+confidential and proprietary. No licence is granted to copy, modify,
+distribute or use them except under a written agreement with the owner.
+If this repository is made public (for example to use free GitHub Pages),
+it is visible but NOT licensed for reuse: all rights remain reserved.
+
+Third-party software used (each under its own licence, not this notice):
+- FastAPI (MIT)
+- Starlette (BSD-3-Clause)
+- Uvicorn (BSD-3-Clause)
+- Pydantic (MIT)
+- HTTPX (BSD-3-Clause)
+- Anthropic Python SDK (MIT)
+
+Translations are produced by a third-party AI model (Anthropic's Claude API)
+and are subject to that provider's terms. Output may be inaccurate.

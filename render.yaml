@@ -1,0 +1,22 @@
+# Optional Render Blueprint. You can also create a "Web Service" from the repo
+# by hand and pick the Docker runtime.
+services:
+  - type: web
+    name: translation-keyboard
+    runtime: docker
+    plan: free   # free instances sleep when idle; first request then takes ~1 min
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false   # set the value in the Render dashboard, never here
+      - key: ACCESS_CODES
+        sync: false
+      - key: ANTHROPIC_MODEL
+        value: claude-sonnet-5-5
+      - key: ALLOWED_ORIGINS
+        value: https://YOUR-GITHUB-NAME.github.io
+      - key: DAILY_CAP_PER_CODE
+        value: "1000"
+      - key: DAILY_CAP_GLOBAL
+        value: "10000"
